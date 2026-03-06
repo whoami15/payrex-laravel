@@ -1,0 +1,67 @@
+{
+    "id": "bstm_AbvnRnF9r577BBFFuNsLFvXvLes1CeeS",
+    "resource": "billing_statement",
+    "amount": 100000,
+    "currency": "PHP",
+    "customer_id": "cus_ZBBnR6Fsr5zvX7HFuFsLFZcvAes9JC22",
+    "description": null,
+    "status": "open",
+    "line_items": [
+        {
+            "id": "bstm_li_27xaTabzf7pBvpGjFAjHynVHVGbauwFz",
+            "resource": "billing_statement_line_item",
+            "description": "Product X",
+            "unit_price": 10000,
+            "quantity": 5
+        },
+        {
+            "id": "bstm_li_A7xBTa2zfvpavpGjFA1Hy4V7V3JaHwAZ",
+            "resource": "billing_statement_line_item",
+            "description": "Product X",
+            "unit_price": 10000,
+            "quantity": 5
+        }
+    ],
+    "livemode": false,
+    "billing_statement_merchant_name": null,
+    "billing_statement_number": "A3EAXLGV-0001",
+    "billing_statement_url": "https://bill.payrexhq.com/b/test_bstm_AbvnRnF9r577BBFFuNsLFvXvLes1CeeS_secret_SKhaVPaqozBV97oeU4h1kw7MbqZKFKSL4ZTqZaYNMAHaqsvtcB",
+    "finalized_at": 1721727000,
+    "statement_descriptor": null,
+    "customer": {
+        "id": "cus_ZBBnR6Fsr5zvX7HFuFsLFZcvAes9JC22",
+        "name": "Juan Dela Cruz",
+        "email": "juan@gmail.com"
+    },
+    "payment_intent": {
+        "id": "pi_UDQ5s2yLAeE4h1CJsP9Mm6RYYk7MMnsb",
+        "amount": 100000,
+        "capture_type": null,
+        "client_secret": "pi_UDQ5s2yLAeE4h1CJsP9Mm6RYYk7MMnsb_secret_azBhHvfc17JJUDs8yi94KpMbtv56eQ5D",
+        "currency": "PHP",
+        "description": "Payment for Billing Statement <billing statement number>",
+        "livemode": false,
+        "metadata": null,
+        "next_action": null,
+        "payment_method_id": null,
+        "payment_methods": ["card", "gcash"],
+        "payment_method_options": {
+            "card": {
+                "capture_type": "automatic"
+            }
+        },
+        "status": "awaiting_payment_method",
+        "return_url": null,
+        "capture_before_at": null,
+        "created_at": 1721726975,
+        "updated_at": 1721726975
+    },
+    "metadata": null,
+    "payment_settings": {
+        "payment_methods": ["card", "gcash"]
+    },
+    "billing_details_collection": "always",
+    "due_at": 1721813375,
+    "created_at": 1721726975,
+    "updated_at": 1721727000
+}

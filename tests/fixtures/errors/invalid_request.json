@@ -1,0 +1,9 @@
+{
+    "errors": [
+        {
+            "code": "invalid_request_error",
+            "detail": "The amount field is required.",
+            "parameter": "amount"
+        }
+    ]
+}

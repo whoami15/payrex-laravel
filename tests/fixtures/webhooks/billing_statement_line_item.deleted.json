@@ -1,0 +1,21 @@
+{
+    "id": "evt_cTMaFLRpkDJnFLKgnkdKsh1NWvReCHCS",
+    "resource": "event",
+    "type": "billing_statement_line_item.deleted",
+    "data": {
+        "id": "bstm_li_vAcSxynQuUoQXkbbDPCcFsVyzKM2Cm3B",
+        "resource": "billing_statement_line_item",
+        "description": "Line Item 1",
+        "billing_statement_id": "bstm_vFKeodC5H2mBunNpv6SekjGkuVHq3jGy",
+        "livemode": false,
+        "quantity": 1,
+        "unit_price": 50000,
+        "created_at": 1773797789,
+        "updated_at": 1773797789
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {},
+    "created_at": 1773797811,
+    "updated_at": 1773797811
+}

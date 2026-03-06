@@ -1,0 +1,44 @@
+{
+    "id": "evt_deWqzvp7KZtzR62rK5D1RP71XHtpuXgS",
+    "resource": "event",
+    "type": "payment_intent.amount_capturable",
+    "data": {
+        "id": "pi_HqJfzv28cbu4xceq8gtyvP1h9F8U52EP",
+        "resource": "payment_intent",
+        "amount": 10000,
+        "amount_received": 0,
+        "amount_capturable": 10000,
+        "capture_before_at": 1774405483,
+        "client_secret": "pi_HqJfzv28cbu4xceq8gtyvP1h9F8U52EP_secret_aAEmAszdju7LrGHzrZrAEeuTAS9ASih4",
+        "currency": "PHP",
+        "description": null,
+        "last_payment_error": null,
+        "latest_payment": null,
+        "livemode": false,
+        "metadata": null,
+        "payment_methods": [
+            "card"
+        ],
+        "payment_method_id": "pm_sUfWTRfXtjKSbmBmK7PF4X3vY6QgReyT",
+        "payment_method_options": {
+            "card": {
+                "request_three_d_secure": "any",
+                "capture_type": "manual"
+            }
+        },
+        "statement_descriptor": null,
+        "status": "awaiting_capture",
+        "next_action": null,
+        "return_url": "https://checkout.payrexhq.com/c/cs_Cuqusmn4cMGDtMdzujgqehCCMQ7gjcxV_secret_APXP9cZiNU6tBNtgBSJSHFKi43DEQXoL",
+        "created_at": 1773800651,
+        "updated_at": 1773800683
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {
+        "status": "processing",
+        "amount_capturable": 0
+    },
+    "created_at": 1773800683,
+    "updated_at": 1773800683
+}

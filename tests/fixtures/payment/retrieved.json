@@ -1,0 +1,40 @@
+{
+    "id": "pay_bJdGt2XC3XNRjps3WdzjKixWfs7Zb4sa",
+    "resource": "payment",
+    "amount": 4569600,
+    "amount_refunded": 0,
+    "billing": {
+        "name": "Juan Dela Cruz",
+        "email": "juan@email.com",
+        "phone": null,
+        "address": {
+            "line1": "123453",
+            "line2": null,
+            "city": "Pasay",
+            "state": "Metro Manila",
+            "postal_code": "1829",
+            "country": "PH"
+        }
+    },
+    "currency": "PHP",
+    "description": null,
+    "fee": 2500,
+    "livemode": false,
+    "metadata": null,
+    "net_amount": 4549257,
+    "payment_intent_id": "pi_nzxCsMb2FQ4WitBZAaQgw3CSTJBnW8id",
+    "payment_method": {
+        "type": "card",
+        "card": {
+            "first6": "511111",
+            "last4": "1111",
+            "brand": "visa"
+        }
+    },
+    "status": "paid",
+    "customer": null,
+    "page_session": null,
+    "refunded": false,
+    "created_at": 1747235098,
+    "updated_at": 1747263620
+}

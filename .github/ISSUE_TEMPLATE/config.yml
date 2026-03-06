@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/whoami15/laravel-payrex/discussions/categories/q-a
+    about: Ask questions and discuss with the community
+  - name: Request a feature
+    url: https://github.com/whoami15/laravel-payrex/discussions/categories/ideas
+    about: Suggest new features or improvements
+  - name: Report a security vulnerability
+    url: https://github.com/whoami15/laravel-payrex/security/policy
+    about: Report security vulnerabilities responsibly

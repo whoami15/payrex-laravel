@@ -1,0 +1,81 @@
+{
+    "id": "evt_2PJVTCej4N1Jw566LiEq5CM5nfRN72Ch",
+    "resource": "event",
+    "type": "checkout_session.expired",
+    "data": {
+        "id": "cs_PJkxRnMQESSZSjCppBM5GQZi9EnxjjCG",
+        "resource": "checkout_session",
+        "customer_reference_id": null,
+        "client_secret": "cs_PJkxRnMQESSZSjCppBM5GQZi9EnxjjCG_secret_9reUGbzz9LozruKAF2KtHJ71vDsFD8m8",
+        "status": "expired",
+        "currency": "PHP",
+        "line_items": [
+            {
+                "id": "cs_li_kmTyMmGEMAJQtejcY8PJUvUp83J1sBfJ",
+                "resource": "checkout_session_line_item",
+                "name": "Test Product",
+                "amount": 10000,
+                "quantity": 1,
+                "description": null,
+                "image": null
+            }
+        ],
+        "livemode": false,
+        "url": "https://checkout.payrexhq.com/c/cs_PJkxRnMQESSZSjCppBM5GQZi9EnxjjCG_secret_9reUGbzz9LozruKAF2KtHJ71vDsFD8m8",
+        "payment_intent": {
+            "id": "pi_GPAD63ZenWUXKmthpNuy5wg2xfer2REH",
+            "resource": "payment_intent",
+            "amount": 10000,
+            "amount_received": 0,
+            "amount_capturable": 0,
+            "client_secret": "pi_GPAD63ZenWUXKmthpNuy5wg2xfer2REH_secret_wwjUK2nVvxTt5vsb497CJGJhzHzRV7qb",
+            "currency": "PHP",
+            "description": null,
+            "last_payment_error": null,
+            "latest_payment": null,
+            "livemode": false,
+            "metadata": null,
+            "payment_methods": [
+                "card",
+                "gcash",
+                "maya",
+                "qrph"
+            ],
+            "payment_method_id": null,
+            "payment_method_options": {
+                "card": {
+                    "request_three_d_secure": "any",
+                    "capture_type": "automatic"
+                }
+            },
+            "statement_descriptor": null,
+            "status": "canceled",
+            "next_action": null,
+            "return_url": null,
+            "created_at": 1773749692,
+            "updated_at": 1773749767
+        },
+        "metadata": null,
+        "success_url": "https://example.com/checkout/success",
+        "cancel_url": "https://example.com/checkout/cancel",
+        "payment_methods": [
+            "card",
+            "maya",
+            "gcash",
+            "qrph"
+        ],
+        "capture_type": "automatic",
+        "description": null,
+        "submit_type": "pay",
+        "expires_at": 1773836092,
+        "created_at": 1773749692,
+        "updated_at": 1773749767
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {
+        "status": "active"
+    },
+    "created_at": 1773749767,
+    "updated_at": 1773749767
+}
