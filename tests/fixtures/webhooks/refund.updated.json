@@ -1,0 +1,27 @@
+{
+    "id": "evt_v8UygJM2tybaNj8VpAKAe4wZVf7Ho7DV",
+    "resource": "event",
+    "type": "refund.updated",
+    "data": {
+        "id": "re_D3gN2BpJLZvMTzbBCtARW298AcxNFDxx",
+        "resource": "refund",
+        "amount": 10000,
+        "currency": "PHP",
+        "livemode": false,
+        "status": "succeeded",
+        "description": null,
+        "reason": "requested_by_customer",
+        "remarks": null,
+        "payment_id": "pay_RBwW29aXGwQofjkgYhDeAuLt8u9Urp1U",
+        "metadata": {
+            "reason_detail": "customer requested"
+        },
+        "created_at": 1773749372,
+        "updated_at": 1773792012
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {},
+    "created_at": 1773809516,
+    "updated_at": 1773809516
+}

@@ -1,0 +1,26 @@
+{
+    "resource": "list",
+    "has_more": false,
+    "data": [
+        {
+            "id": "po_txn_bJdGtjXC3NNRYpm3ndzzKi2WfsnZa4bs",
+            "resource": "payout_transaction",
+            "amount": 4569600,
+            "net_amount": 2664200,
+            "transaction_id": "pay_aJsGbj2C34NR2pmzndnzNiSWfsn6N21S",
+            "transaction_type": "payment",
+            "created_at": 1747235098,
+            "updated_at": 1747263620
+        },
+        {
+            "id": "po_txn_cKeFukYD4OOSZqn4oeAALj3XgtoAb5ct",
+            "resource": "payout_transaction",
+            "amount": -500000,
+            "net_amount": -500000,
+            "transaction_id": "re_ACubtXXN3XNRWpW3W1zQKzLWfs7Zn2sa",
+            "transaction_type": "refund",
+            "created_at": 1747235200,
+            "updated_at": 1747263700
+        }
+    ]
+}

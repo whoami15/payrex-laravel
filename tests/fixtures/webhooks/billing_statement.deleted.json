@@ -1,0 +1,54 @@
+{
+    "id": "evt_zF6MRvjTtYM2MyHEgDJCUdG9LdhX5S6c",
+    "resource": "event",
+    "type": "billing_statement.deleted",
+    "data": {
+        "id": "bstm_vrNSubLZQMfPiGc2EpDiCF4HTu4aiPwV",
+        "resource": "billing_statement",
+        "amount": 50000,
+        "currency": "PHP",
+        "customer_id": "cus_fE64t8BJ5e7PvhZNWG6DCjbR2ASCp9iw",
+        "description": "Test billing statement",
+        "due_at": 0,
+        "finalized_at": 0,
+        "billing_statement_merchant_name": null,
+        "billing_statement_number": "J2FVW1SV-0001",
+        "billing_statement_url": "https://bill.payrexhq.com/b/test_bstm_vrNSubLZQMfPiGc2EpDiCF4HTu4aiPwV_secret_RJFPaYbnkcRCCufpQF2p17jzcEn9BxHnsFjeh5sMVwW1vALQE8",
+        "line_items": [
+            {
+                "id": "bstm_li_1XNTQPmJcpDiowNggFm5kZdhnqFir7zU",
+                "resource": "billing_statement_line_item",
+                "description": "Line Item 1",
+                "billing_statement_id": "bstm_vrNSubLZQMfPiGc2EpDiCF4HTu4aiPwV",
+                "livemode": false,
+                "quantity": 1,
+                "unit_price": 50000,
+                "created_at": 1773797864,
+                "updated_at": 1773797864
+            }
+        ],
+        "livemode": false,
+        "merchant_id": "merc_XNNXbTz2n4UAigUwdPRdPqYUk61vvBDW",
+        "statement_descriptor": null,
+        "status": "draft",
+        "metadata": null,
+        "customer": {
+            "id": "cus_fE64t8BJ5e7PvhZNWG6DCjbR2ASCp9iw",
+            "name": "Test Customer",
+            "email": "test@example.com"
+        },
+        "payment_intent": null,
+        "payment_settings": {
+            "payment_methods": [
+                "card"
+            ]
+        },
+        "created_at": 1773797864,
+        "updated_at": 1773797945
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {},
+    "created_at": 1773797945,
+    "updated_at": 1773797945
+}

@@ -1,0 +1,34 @@
+{
+    "id": "pi_SJuGtXXC3XNRWpW3W1zQKiLWf67ZC4sX",
+    "resource": "payment_intent",
+    "amount": 10000,
+    "amount_received": 10000,
+    "amount_capturable": 0,
+    "client_secret": "pi_SJuGtXXC3XNRWpW3W1zQKiLWf67ZC4sX_secret_7KGizzHuLtPtaLwiRMHekBHRUo6yv52r",
+    "currency": "PHP",
+    "description": "",
+    "last_payment_error": null,
+    "latest_payment": {
+        "id": "pay_bJdGt2XC3XNRjps3WdzjKixWfs7Zb4sa",
+        "resource": "payment",
+        "amount": 10000,
+        "status": "paid"
+    },
+    "livemode": false,
+    "metadata": null,
+    "next_action": null,
+    "payment_method_options": {
+        "card": {
+            "capture_type": "manual"
+        }
+    },
+    "payment_methods": ["card"],
+    "statement_descriptor": null,
+    "status": "succeeded",
+    "payment_method_id": "pm_AcXnRnF9r577BBFFuNsDFvXvBes1Aee1",
+    "return_url": null,
+    "capture_before_at": null,
+    "customer": null,
+    "created_at": 1700407880,
+    "updated_at": 1700408000
+}
