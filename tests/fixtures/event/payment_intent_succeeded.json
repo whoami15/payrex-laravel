@@ -1,0 +1,33 @@
+{
+    "id": "evt_bxuGtXXC3zNsWbW3W1zQKiLWf67ZC4sa",
+    "resource": "event",
+    "type": "payment_intent.succeeded",
+    "livemode": false,
+    "pending_webhooks": 1,
+    "data": {
+        "resource": {
+            "id": "pi_SJuGtXXC3XNRWpW3W1zQKiLWf67ZC4sX",
+            "resource": "payment_intent",
+            "amount": 10000,
+            "payment_methods": ["card", "gcash"],
+            "status": "awaiting_payment_method",
+            "capture_type": "automatic",
+            "client_secret": "pi_SJuGtXXC3XNRWpW3W1zQKiLWf67ZC4sX_secret_7KGizzHuLtPtaLwiRMHekBHRUo6yv52r",
+            "currency": "PHP",
+            "description": "",
+            "livemode": false,
+            "metadata": null,
+            "next_action": {
+                "type": "redirect",
+                "redirect_url": "https://my-application/redirect"
+            },
+            "created_at": 1700407880,
+            "updated_at": 1700407880
+        },
+        "previous_attributes": {
+            "status": "awaiting_next_action"
+        }
+    },
+    "created_at": 1680064018,
+    "updated_at": 1680064015
+}

@@ -1,0 +1,8 @@
+{
+    "errors": [
+        {
+            "code": "resource_not_found",
+            "detail": "The resource with ID pi_nonexistent was not found."
+        }
+    ]
+}
