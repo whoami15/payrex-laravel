@@ -1,0 +1,72 @@
+{
+    "id": "cs_xxxxx",
+    "resource": "checkout_session",
+    "amount": 100000,
+    "customer_id": null,
+    "customer": null,
+    "customer_reference_id": null,
+    "client_secret": "cs_xxxxx_secret_xxxxx",
+    "status": "expired",
+    "currency": "PHP",
+    "line_items": [
+        {
+            "id": "cs_li_xxxxx",
+            "resource": "checkout_session_line_item",
+            "name": "Some name",
+            "amount": 10000,
+            "quantity": 5,
+            "description": null,
+            "image": "https://some-url.com/1.jpg"
+        },
+        {
+            "id": "cs_li_yyyyy",
+            "resource": "checkout_session_line_item",
+            "name": "Some name",
+            "amount": 10000,
+            "quantity": 5,
+            "description": null,
+            "image": null
+        }
+    ],
+    "livemode": false,
+    "url": "https://checkout.payrexhq.com/c/cs_xxxxx_secret_xxxxx",
+    "payment_intent": {
+        "id": "pi_xxxxx",
+        "amount": 100000,
+        "capture_type": null,
+        "client_secret": "pi_xxxxx_secret_xxxxx",
+        "currency": "PHP",
+        "description": "Some description",
+        "livemode": false,
+        "metadata": null,
+        "next_action": null,
+        "payment_method_id": null,
+        "payment_methods": ["card", "gcash"],
+        "payment_method_options": {
+            "card": {
+                "capture_type": "automatic"
+            }
+        },
+        "status": "awaiting_payment_method",
+        "return_url": null,
+        "capture_before_at": null,
+        "created_at": 1721726975,
+        "updated_at": 1721726975
+    },
+    "metadata": null,
+    "success_url": "http://some-url.com",
+    "cancel_url": "http://some-url.com",
+    "payment_methods": ["card", "gcash"],
+    "payment_method_options": {
+        "card": {
+            "capture_type": "automatic"
+        }
+    },
+    "billing_details_collection": "always",
+    "description": "Some description",
+    "submit_type": "pay",
+    "statement_descriptor": "Override statement descriptor",
+    "expires_at": 1721813375,
+    "created_at": 1721726975,
+    "updated_at": 1721813375
+}

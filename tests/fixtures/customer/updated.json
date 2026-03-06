@@ -1,0 +1,24 @@
+{
+    "id": "cus_xxxxx",
+    "resource": "customer",
+    "billing_statement_prefix": "PKYG9MA2",
+    "billing": {
+        "phone": "+639181234567",
+        "address": {
+            "line1": "456 Updated St",
+            "line2": null,
+            "city": "Quezon City",
+            "state": "NCR",
+            "postal_code": "1100",
+            "country": "PH"
+        }
+    },
+    "email": "juan.jr@gmail.com",
+    "currency": "PHP",
+    "livemode": false,
+    "metadata": null,
+    "name": "Juan Dela Cruz Jr.",
+    "next_billing_statement_sequence_number": "1",
+    "created_at": 1721726975,
+    "updated_at": 1721727100
+}

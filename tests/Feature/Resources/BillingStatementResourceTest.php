@@ -1,0 +1,201 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Support\Facades\Http;
+use LegionHQ\LaravelPayrex\Data\BillingStatement;
+use LegionHQ\LaravelPayrex\Data\DeletedResource;
+use LegionHQ\LaravelPayrex\Data\PayrexCollection;
+use LegionHQ\LaravelPayrex\Enums\BillingStatementStatus;
+use LegionHQ\LaravelPayrex\PayrexClient;
+
+it('creates a billing statement', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements' => Http::response(loadFixture('billing_statement/created.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->create([
+        'customer_id' => 'cus_xxxxx',
+        'currency' => 'PHP',
+        'billing_details_collection' => 'always',
+        'payment_settings' => [
+            'payment_methods' => ['card', 'gcash'],
+        ],
+    ]);
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->resource)->toBe('billing_statement')
+        ->and($result->amount)->toBe(0)
+        ->and($result->currency)->toBe('PHP')
+        ->and($result->customerId)->toBe('cus_xxxxx')
+        ->and($result->status)->toBe(BillingStatementStatus::Draft)
+        ->and($result->description)->toBeNull()
+        ->and($result->billingStatementUrl)->toBeNull()
+        ->and($result->billingDetailsCollection)->toBe('always')
+        ->and($result->dueAt)->toBeNull()
+        ->and($result->paymentIntent)->toBeNull()
+        ->and($result['payment_settings']['payment_methods'])->toBe(['card', 'gcash'])
+        ->and($result['line_items'])->toHaveCount(0)
+        ->and($result['customer']['id'])->toBe('cus_xxxxx')
+        ->and($result['customer']['name'])->toBe('Juan Dela Cruz')
+        ->and($result->livemode)->toBeFalse();
+
+    Http::assertSent(function ($r) {
+        return $r->url() === 'https://api.payrexhq.com/billing_statements'
+            && $r->method() === 'POST'
+            && $r['customer_id'] === 'cus_xxxxx'
+            && $r['currency'] === 'PHP';
+    });
+});
+
+it('lists billing statements', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements' => Http::response(loadFixture('billing_statement/list.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->list();
+
+    expect($result)->toBeInstanceOf(PayrexCollection::class)
+        ->and($result['resource'])->toBe('list')
+        ->and($result['data'])->toHaveCount(2)
+        ->and($result['has_more'])->toBeFalse()
+        ->and($result->data[0])->toBeInstanceOf(BillingStatement::class)
+        ->and($result->data[0]->id)->toBe('bstm_xxxxx')
+        ->and($result->data[0]->status)->toBe(BillingStatementStatus::Open)
+        ->and($result->data[1]->id)->toBe('bstm_yyyyy')
+        ->and($result->data[1]->status)->toBe(BillingStatementStatus::Draft);
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements'
+        && $r->method() === 'GET'
+    );
+});
+
+it('retrieves a billing statement', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements/bstm_xxxxx' => Http::response(loadFixture('billing_statement/finalized.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->retrieve('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->amount)->toBe(100000)
+        ->and($result->status)->toBe(BillingStatementStatus::Open)
+        ->and($result->customerId)->toBe('cus_xxxxx')
+        ->and($result['line_items'])->toHaveCount(2)
+        ->and($result['customer']['name'])->toBe('Juan Dela Cruz')
+        ->and($result->billingStatementUrl)->toStartWith('https://bill.payrexhq.com/')
+        ->and($result->paymentIntent)->not->toBeNull();
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx'
+        && $r->method() === 'GET'
+    );
+});
+
+it('updates a billing statement', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements/bstm_xxxxx' => Http::response(loadFixture('billing_statement/updated.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->update('bstm_xxxxx', [
+        'description' => 'Updated billing statement description',
+    ]);
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->description)->toBe('Updated billing statement description');
+
+    Http::assertSent(function ($r) {
+        return $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx'
+            && $r->method() === 'PUT'
+            && $r['description'] === 'Updated billing statement description';
+    });
+});
+
+it('deletes a billing statement', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements/bstm_xxxxx' => Http::response(loadFixture('billing_statement/deleted.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->delete('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(DeletedResource::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->deleted)->toBeTrue();
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx'
+        && $r->method() === 'DELETE'
+    );
+});
+
+it('finalizes a billing statement', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements/bstm_xxxxx/finalize' => Http::response(loadFixture('billing_statement/finalized.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->finalize('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->status)->toBe(BillingStatementStatus::Open)
+        ->and($result->paymentIntent)->not->toBeNull();
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx/finalize'
+        && $r->method() === 'POST'
+    );
+});
+
+it('voids a billing statement', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements/bstm_xxxxx/void' => Http::response(loadFixture('billing_statement/voided.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->void('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->status)->toBe(BillingStatementStatus::Void);
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx/void'
+        && $r->method() === 'POST'
+    );
+});
+
+it('marks a billing statement as uncollectible', function () {
+    Http::fake(['https://api.payrexhq.com/billing_statements/bstm_xxxxx/mark_uncollectible' => Http::response(loadFixture('billing_statement/uncollectible.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->markUncollectible('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->status)->toBe(BillingStatementStatus::Uncollectible);
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx/mark_uncollectible'
+        && $r->method() === 'POST'
+    );
+});
+
+it('sends a billing statement and returns the resource', function () {
+    Http::fake([
+        'https://api.payrexhq.com/billing_statements/bstm_xxxxx/send' => Http::response(loadFixture('billing_statement/finalized.json')),
+    ]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->send('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx')
+        ->and($result->status)->toBe(BillingStatementStatus::Open);
+
+    Http::assertSent(fn ($r) => $r->url() === 'https://api.payrexhq.com/billing_statements/bstm_xxxxx/send'
+        && $r->method() === 'POST'
+    );
+});
+
+it('sends a billing statement and retrieves when API returns empty response', function () {
+    Http::fake([
+        'https://api.payrexhq.com/billing_statements/bstm_xxxxx/send' => Http::response([]),
+        'https://api.payrexhq.com/billing_statements/bstm_xxxxx' => Http::response(loadFixture('billing_statement/finalized.json')),
+    ]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->billingStatements()->send('bstm_xxxxx');
+
+    expect($result)->toBeInstanceOf(BillingStatement::class)
+        ->and($result->id)->toBe('bstm_xxxxx');
+});

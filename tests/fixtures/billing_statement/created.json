@@ -1,0 +1,31 @@
+{
+    "id": "bstm_xxxxx",
+    "resource": "billing_statement",
+    "amount": 0,
+    "currency": "PHP",
+    "customer_id": "cus_xxxxx",
+    "description": null,
+    "status": "draft",
+    "line_items": [],
+    "livemode": false,
+    "billing_statement_merchant_name": null,
+    "billing_statement_number": null,
+    "billing_statement_url": null,
+    "finalized_at": null,
+    "statement_descriptor": null,
+    "customer": {
+        "id": "cus_xxxxx",
+        "name": "Juan Dela Cruz",
+        "email": "juan@gmail.com"
+    },
+    "payment_intent": null,
+    "metadata": null,
+    "payment_settings": {
+        "payment_methods": ["card", "gcash"]
+    },
+    "setup_future_usage": null,
+    "billing_details_collection": "always",
+    "due_at": null,
+    "created_at": 1721726975,
+    "updated_at": 1721726975
+}

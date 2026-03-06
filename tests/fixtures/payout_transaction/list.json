@@ -1,0 +1,36 @@
+{
+    "resource": "list",
+    "has_more": false,
+    "data": [
+        {
+            "id": "po_txn_xxxxx",
+            "resource": "payout_transaction",
+            "amount": 4569600,
+            "net_amount": 2664200,
+            "transaction_id": "pay_xxxxx",
+            "transaction_type": "payment",
+            "created_at": 1747235098,
+            "updated_at": 1747263620
+        },
+        {
+            "id": "po_txn_yyyyy",
+            "resource": "payout_transaction",
+            "amount": -500000,
+            "net_amount": -500000,
+            "transaction_id": "re_xxxxx",
+            "transaction_type": "refund",
+            "created_at": 1747235200,
+            "updated_at": 1747263700
+        },
+        {
+            "id": "po_txn_zzzzz",
+            "resource": "payout_transaction",
+            "amount": -25000,
+            "net_amount": -25000,
+            "transaction_id": null,
+            "transaction_type": "adjustment",
+            "created_at": 1747235300,
+            "updated_at": 1747263800
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "id": "wh_xxxxx",
+    "resource": "webhook",
+    "secret_key": "whsk_xxxxx",
+    "status": "disabled",
+    "description": "This is the webhook used for sending shipments after receiving successfully paid payments",
+    "livemode": false,
+    "url": "https://my-ecommerce.com/send-shipments",
+    "events": [
+        "payment_intent.succeeded"
+    ],
+    "created_at": 1706056262,
+    "updated_at": 1706056500
+}

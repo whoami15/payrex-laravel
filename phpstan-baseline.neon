@@ -1,0 +1,5 @@
+parameters:
+    ignoreErrors:
+        -
+            message: '#Trait LegionHQ\\LaravelPayrex\\Concerns\\HasPayrexCustomer is used zero times and is not analysed\.#'
+            path: src/Concerns/HasPayrexCustomer.php

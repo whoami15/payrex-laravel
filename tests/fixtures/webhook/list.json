@@ -1,0 +1,35 @@
+{
+    "resource": "list",
+    "data": [
+        {
+            "id": "wh_xxxxx",
+            "resource": "webhook",
+            "secret_key": "whsk_xxxxx",
+            "status": "enabled",
+            "description": "This is the webhook used for sending shipments after receiving successfully paid payments",
+            "livemode": false,
+            "url": "https://my-ecommerce.com/send-shipments",
+            "events": [
+                "payment_intent.succeeded"
+            ],
+            "created_at": 1706056262,
+            "updated_at": 1706056471
+        },
+        {
+            "id": "wh_yyyyy",
+            "resource": "webhook",
+            "secret_key": "whsk_yyyyy",
+            "status": "disabled",
+            "description": "Staging webhook endpoint",
+            "livemode": false,
+            "url": "https://staging.my-ecommerce.com/webhooks",
+            "events": [
+                "billing_statement.created",
+                "billing_statement.paid"
+            ],
+            "created_at": 1706056300,
+            "updated_at": 1706056400
+        }
+    ],
+    "has_more": false
+}

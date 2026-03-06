@@ -1,0 +1,25 @@
+{
+    "id": "evt_xxxxx",
+    "resource": "event",
+    "type": "refund.created",
+    "data": {
+        "id": "re_xxxxx",
+        "resource": "refund",
+        "amount": 10000,
+        "currency": "PHP",
+        "livemode": false,
+        "status": "succeeded",
+        "description": null,
+        "reason": "requested_by_customer",
+        "remarks": null,
+        "payment_id": "pay_xxxxx",
+        "metadata": null,
+        "created_at": 1773749372,
+        "updated_at": 1773749372
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {},
+    "created_at": 1773749372,
+    "updated_at": 1773749372
+}

@@ -1,0 +1,32 @@
+{
+    "id": "pi_xxxxx",
+    "resource": "payment_intent",
+    "amount": 10000,
+    "amount_received": 0,
+    "amount_capturable": 0,
+    "client_secret": "pi_xxxxx_secret_xxxxx",
+    "currency": "PHP",
+    "description": "",
+    "last_payment_error": null,
+    "latest_payment": null,
+    "livemode": false,
+    "metadata": null,
+    "next_action": {
+        "type": "redirect",
+        "redirect_url": "https://my-application/redirect"
+    },
+    "payment_method_options": {
+        "card": {
+            "capture_type": "automatic"
+        }
+    },
+    "payment_methods": ["card", "gcash"],
+    "statement_descriptor": null,
+    "status": "awaiting_payment_method",
+    "payment_method_id": null,
+    "return_url": null,
+    "capture_before_at": 1700407880,
+    "customer": null,
+    "created_at": 1700407880,
+    "updated_at": 1700407880
+}

@@ -1,0 +1,15 @@
+{
+    "id": "wh_xxxxx",
+    "resource": "webhook",
+    "secret_key": "whsk_xxxxx",
+    "status": "enabled",
+    "description": "Updated webhook endpoint",
+    "livemode": false,
+    "url": "https://my-ecommerce.com/webhook-updated",
+    "events": [
+        "payment_intent.succeeded",
+        "refund.created"
+    ],
+    "created_at": 1706056262,
+    "updated_at": 1706056600
+}

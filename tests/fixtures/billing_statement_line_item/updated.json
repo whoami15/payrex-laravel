@@ -1,0 +1,11 @@
+{
+    "id": "bstm_li_xxxxx",
+    "resource": "billing_statement_line_item",
+    "description": "Product X (Updated)",
+    "unit_price": 12000,
+    "quantity": 3,
+    "billing_statement_id": "bstm_xxxxx",
+    "livemode": false,
+    "created_at": 1721726975,
+    "updated_at": 1721727100
+}

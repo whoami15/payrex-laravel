@@ -1,0 +1,78 @@
+{
+    "id": "evt_xxxxx",
+    "resource": "event",
+    "type": "billing_statement.voided",
+    "data": {
+        "id": "bstm_xxxxx",
+        "resource": "billing_statement",
+        "amount": 50000,
+        "currency": "PHP",
+        "customer_id": "cus_xxxxx",
+        "description": "Updated description",
+        "due_at": 1774405313,
+        "finalized_at": 1773800524,
+        "billing_statement_merchant_name": null,
+        "billing_statement_number": "7Z5VRJUI-0001",
+        "billing_statement_url": "https://bill.payrexhq.com/b/test_bstm_xxxxx_secret_xxxxx",
+        "line_items": [
+            {
+                "id": "bstm_li_xxxxx",
+                "resource": "billing_statement_line_item",
+                "description": "Line Item 1",
+                "billing_statement_id": "bstm_xxxxx",
+                "livemode": false,
+                "quantity": 1,
+                "unit_price": 50000,
+                "created_at": 1773800490,
+                "updated_at": 1773800490
+            }
+        ],
+        "livemode": false,
+        "merchant_id": "merc_xxxxx",
+        "statement_descriptor": null,
+        "status": "void",
+        "metadata": null,
+        "customer": {
+            "id": "cus_xxxxx",
+            "name": "Test Customer",
+            "email": "test@example.com"
+        },
+        "payment_intent": {
+            "id": "pi_xxxxx",
+            "resource": "payment_intent",
+            "amount": null,
+            "amount_received": null,
+            "amount_capturable": null,
+            "client_secret": "pi_xxxxx_secret_xxxxx",
+            "currency": null,
+            "description": null,
+            "last_payment_error": null,
+            "latest_payment": null,
+            "livemode": false,
+            "metadata": null,
+            "payment_methods": null,
+            "payment_method_id": null,
+            "payment_method_options": null,
+            "statement_descriptor": null,
+            "status": "canceled",
+            "next_action": null,
+            "return_url": null,
+            "created_at": 1773800524,
+            "updated_at": 1773800535
+        },
+        "payment_settings": {
+            "payment_methods": [
+                "card"
+            ]
+        },
+        "created_at": 1773800490,
+        "updated_at": 1773800535
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {
+        "status": "open"
+    },
+    "created_at": 1773800535,
+    "updated_at": 1773800535
+}

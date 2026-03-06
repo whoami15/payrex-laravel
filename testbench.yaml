@@ -1,0 +1,5 @@
+providers:
+  - LegionHQ\LaravelPayrex\PayrexServiceProvider
+
+aliases:
+  Payrex: LegionHQ\LaravelPayrex\Facades\Payrex

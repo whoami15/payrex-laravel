@@ -1,0 +1,81 @@
+{
+    "id": "evt_xxxxx",
+    "resource": "event",
+    "type": "checkout_session.expired",
+    "data": {
+        "id": "cs_xxxxx",
+        "resource": "checkout_session",
+        "customer_reference_id": null,
+        "client_secret": "cs_xxxxx_secret_xxxxx",
+        "status": "expired",
+        "currency": "PHP",
+        "line_items": [
+            {
+                "id": "cs_li_xxxxx",
+                "resource": "checkout_session_line_item",
+                "name": "Test Product",
+                "amount": 10000,
+                "quantity": 1,
+                "description": null,
+                "image": null
+            }
+        ],
+        "livemode": false,
+        "url": "https://checkout.payrexhq.com/c/cs_xxxxx_secret_xxxxx",
+        "payment_intent": {
+            "id": "pi_xxxxx",
+            "resource": "payment_intent",
+            "amount": 10000,
+            "amount_received": 0,
+            "amount_capturable": 0,
+            "client_secret": "pi_xxxxx_secret_xxxxx",
+            "currency": "PHP",
+            "description": null,
+            "last_payment_error": null,
+            "latest_payment": null,
+            "livemode": false,
+            "metadata": null,
+            "payment_methods": [
+                "card",
+                "gcash",
+                "maya",
+                "qrph"
+            ],
+            "payment_method_id": null,
+            "payment_method_options": {
+                "card": {
+                    "request_three_d_secure": "any",
+                    "capture_type": "automatic"
+                }
+            },
+            "statement_descriptor": null,
+            "status": "canceled",
+            "next_action": null,
+            "return_url": null,
+            "created_at": 1773749692,
+            "updated_at": 1773749767
+        },
+        "metadata": null,
+        "success_url": "https://example.com/checkout/success",
+        "cancel_url": "https://example.com/checkout/cancel",
+        "payment_methods": [
+            "card",
+            "maya",
+            "gcash",
+            "qrph"
+        ],
+        "capture_type": "automatic",
+        "description": null,
+        "submit_type": "pay",
+        "expires_at": 1773836092,
+        "created_at": 1773749692,
+        "updated_at": 1773749767
+    },
+    "livemode": false,
+    "pending_webhooks": 1,
+    "previous_attributes": {
+        "status": "active"
+    },
+    "created_at": 1773749767,
+    "updated_at": 1773749767
+}

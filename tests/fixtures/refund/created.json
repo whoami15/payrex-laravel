@@ -1,0 +1,15 @@
+{
+    "id": "re_xxxxx",
+    "resource": "refund",
+    "amount": 10000,
+    "status": "succeeded",
+    "currency": "PHP",
+    "description": "",
+    "reason": "others",
+    "remarks": "The customer is disappointed about item XYZ.",
+    "livemode": false,
+    "metadata": null,
+    "payment_id": "pay_xxxxx",
+    "created_at": 1700407880,
+    "updated_at": 1700407880
+}

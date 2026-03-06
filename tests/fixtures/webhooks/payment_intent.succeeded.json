@@ -1,0 +1,85 @@
+{
+    "id": "evt_xxxxx",
+    "resource": "event",
+    "type": "payment_intent.succeeded",
+    "data": {
+        "id": "pi_xxxxx",
+        "resource": "payment_intent",
+        "amount": 10000,
+        "amount_received": 10000,
+        "amount_capturable": 0,
+        "client_secret": "pi_xxxxx_secret_xxxxx",
+        "currency": "PHP",
+        "description": null,
+        "last_payment_error": null,
+        "latest_payment": {
+            "id": "pay_xxxxx",
+            "resource": "payment",
+            "amount": 10000,
+            "amount_refunded": 0,
+            "billing": {
+                "name": "test",
+                "email": "test@gmail.com",
+                "phone": "09090909091",
+                "address": {
+                    "line1": "test",
+                    "line2": null,
+                    "city": "test",
+                    "state": "test",
+                    "postal_code": "1234",
+                    "country": "PH"
+                }
+            },
+            "currency": "PHP",
+            "description": null,
+            "fee": 0,
+            "livemode": false,
+            "metadata": null,
+            "net_amount": 10000,
+            "payment_intent_id": "pi_xxxxx",
+            "payment_method": {
+                "type": "card",
+                "card": {
+                    "first6": "424242",
+                    "last4": "4242",
+                    "approval_code": "test",
+                    "brand": "visa"
+                }
+            },
+            "refunded": false,
+            "status": "paid",
+            "created_at": 1773748943,
+            "updated_at": 1773748943
+        },
+        "livemode": false,
+        "metadata": null,
+        "payment_methods": [
+            "card",
+            "gcash",
+            "maya",
+            "qrph"
+        ],
+        "payment_method_id": "pm_xxxxx",
+        "payment_method_options": {
+            "card": {
+                "capture_type": "automatic",
+                "request_three_d_secure": "any"
+            }
+        },
+        "statement_descriptor": null,
+        "status": "succeeded",
+        "next_action": null,
+        "return_url": "https://checkout.payrexhq.com/c/cs_xxxxx_secret_xxxxx",
+        "created_at": 1773748911,
+        "updated_at": 1773748943
+    },
+    "livemode": false,
+    "pending_webhooks": 0,
+    "previous_attributes": {
+        "status": "processing",
+        "amount_capturable": 0,
+        "amount_received": 0
+    },
+    "created_at": 1773748943,
+    "updated_at": 1773748961
+}
