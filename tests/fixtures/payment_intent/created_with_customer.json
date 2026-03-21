@@ -1,0 +1,43 @@
+{
+    "id": "pi_xxxxx",
+    "resource": "payment_intent",
+    "amount": 10000,
+    "client_secret": "pi_xxxxx_secret_xxxxx",
+    "currency": "PHP",
+    "livemode": false,
+    "payment_methods": ["card"],
+    "status": "awaiting_payment_method",
+    "next_action": null,
+    "customer": {
+        "id": "cus_xxxxx",
+        "resource": "customer",
+        "billing": null,
+        "billing_statement_prefix": "MOAEBTEA",
+        "currency": "PHP",
+        "email": "test@example.com",
+        "livemode": false,
+        "name": "Test Customer",
+        "next_billing_statement_sequence_number": "1",
+        "metadata": null,
+        "created_at": 1721726975,
+        "updated_at": 1721726975
+    },
+    "amount_received": 0,
+    "amount_capturable": 0,
+    "description": null,
+    "metadata": null,
+    "payment_method_id": null,
+    "payment_method_options": {
+        "card": {
+            "request_three_d_secure": "any",
+            "capture_type": "automatic"
+        }
+    },
+    "last_payment_error": null,
+    "latest_payment": null,
+    "return_url": null,
+    "statement_descriptor": null,
+    "capture_before_at": null,
+    "created_at": 1721726975,
+    "updated_at": 1721726975
+}

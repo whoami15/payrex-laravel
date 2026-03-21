@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Http;
+use LegionHQ\LaravelPayrex\Data\Customer;
 use LegionHQ\LaravelPayrex\Data\PaymentIntent;
 use LegionHQ\LaravelPayrex\Enums\PaymentIntentStatus;
 use LegionHQ\LaravelPayrex\PayrexClient;
@@ -45,6 +46,34 @@ it('creates a payment intent', function () {
             && $r->method() === 'POST'
             && $r['amount'] === 10000
             && $r['currency'] === 'PHP';
+    });
+});
+
+it('creates a payment intent with a customer', function () {
+    Http::fake(['https://api.payrexhq.com/payment_intents' => Http::response(loadFixture('payment_intent/created_with_customer.json'))]);
+
+    $client = new PayrexClient(secretKey: 'sk_test_123', baseUrl: 'https://api.payrexhq.com');
+    $result = $client->paymentIntents()->create([
+        'amount' => 10000,
+        'currency' => 'PHP',
+        'payment_methods' => ['card'],
+        'customer_id' => 'cus_xxxxx',
+    ]);
+
+    expect($result)->toBeInstanceOf(PaymentIntent::class)
+        ->and($result->id)->toBe('pi_xxxxx')
+        ->and($result->amount)->toBe(10000)
+        ->and($result->status)->toBe(PaymentIntentStatus::AwaitingPaymentMethod)
+        ->and($result->customer)->toBeInstanceOf(Customer::class)
+        ->and($result->customer->id)->toBe('cus_xxxxx')
+        ->and($result->customer->name)->toBe('Test Customer')
+        ->and($result->customer->email)->toBe('test@example.com')
+        ->and($result->customer->currency)->toBe('PHP');
+
+    Http::assertSent(function ($r) {
+        return $r->url() === 'https://api.payrexhq.com/payment_intents'
+            && $r->method() === 'POST'
+            && $r['customer_id'] === 'cus_xxxxx';
     });
 });
 
