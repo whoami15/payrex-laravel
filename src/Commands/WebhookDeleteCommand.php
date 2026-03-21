@@ -73,7 +73,7 @@ final class WebhookDeleteCommand extends Command
             : '-';
 
         return [
-            ['ID', $webhook->id],
+            ['ID', $webhook->id ?? ''],
             ['URL', $webhook->url ?? '-'],
             ['Status', $status],
             ['Events', implode(PHP_EOL, $webhook->events ?? [])],

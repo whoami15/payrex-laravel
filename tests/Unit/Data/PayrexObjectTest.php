@@ -73,9 +73,11 @@ it('creates from constructor', function () {
         ->and($obj->id)->toBe('obj_456');
 });
 
-it('throws when id is missing', function () {
-    new PayrexObject(['resource' => 'test']);
-})->throws(InvalidArgumentException::class, 'Missing required field: id');
+it('defaults id to null when missing', function () {
+    $obj = new PayrexObject(['resource' => 'test']);
+
+    expect($obj->id)->toBeNull();
+});
 
 it('defaults resource to null when missing', function () {
     $obj = new PayrexObject(['id' => 'obj_123']);

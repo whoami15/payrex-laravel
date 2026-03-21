@@ -6,7 +6,6 @@ namespace LegionHQ\LaravelPayrex\Data;
 
 use ArrayAccess;
 use BackedEnum;
-use InvalidArgumentException;
 use JsonSerializable;
 use LogicException;
 
@@ -29,7 +28,7 @@ readonly class PayrexObject implements ArrayAccess, JsonSerializable
         'webhook' => WebhookEndpoint::class,
     ];
 
-    public string $id;
+    public ?string $id;
 
     public ?string $resource;
 
@@ -100,7 +99,7 @@ readonly class PayrexObject implements ArrayAccess, JsonSerializable
     public function __construct(
         protected array $attributes,
     ) {
-        $this->id = $this->attributes['id'] ?? throw new InvalidArgumentException('Missing required field: id');
+        $this->id = $this->attributes['id'] ?? null;
         $this->resource = $this->attributes['resource'] ?? null;
         $this->livemode = $this->attributes['livemode'] ?? null;
         $this->metadata = $this->attributes['metadata'] ?? null;

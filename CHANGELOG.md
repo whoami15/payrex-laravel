@@ -2,7 +2,14 @@
 
 All notable changes to `payrex-laravel` will be documented in this file.
 
-## [Unreleased](https://github.com/whoami15/payrex-laravel/compare/v1.0.0...main)
+## [Unreleased](https://github.com/whoami15/payrex-laravel/compare/v1.0.1...main)
+
+## [v1.0.1](https://github.com/whoami15/payrex-laravel/compare/v1.0.0...v1.0.1) - 2026-03-21
+
+### Fixed
+
+* `PayrexObject::$id` is now nullable to handle partial API expansions where the expanded object is missing its `id` field (e.g., `checkout_session.customer` returns customer data without `id`)
+* `expandRelation()` no longer crashes when the API returns an expanded relation without an `id` — it constructs the DTO with a `null` id instead
 
 ## [v1.0.0](https://github.com/whoami15/payrex-laravel/compare/v1.0.0-beta1...v1.0.0) - 2026-03-18
 

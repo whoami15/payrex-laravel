@@ -76,7 +76,7 @@ final readonly class PayrexCollection implements ArrayAccess, Countable, Iterato
 
                 $data = $collection->data;
                 $lastItem = end($data);
-                $collection = ($collection->paginator)(['after' => $lastItem->id]);
+                $collection = ($collection->paginator)(['after' => $lastItem->id ?? '']);
             }
         });
     }
