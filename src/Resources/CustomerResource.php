@@ -8,10 +8,12 @@ use LegionHQ\LaravelPayrex\Concerns\HasList;
 use LegionHQ\LaravelPayrex\Data\Customer;
 use LegionHQ\LaravelPayrex\Data\DeletedResource;
 use LegionHQ\LaravelPayrex\Data\PayrexCollection;
+use LegionHQ\LaravelPayrex\Data\PayrexCursorPaginator;
 use LegionHQ\LaravelPayrex\Exceptions\PayrexApiException;
 
 /**
  * @method PayrexCollection<Customer> list(array{limit?: int, before?: string, after?: string, email?: string, name?: string, metadata?: array<string, string>} $params = [])
+ * @method PayrexCursorPaginator<Customer> paginate(int $perPage = 10, array<string, mixed> $params = [], array<string, mixed> $options = [])
  */
 final class CustomerResource extends ApiResource
 {

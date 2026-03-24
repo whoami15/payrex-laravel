@@ -8,10 +8,12 @@ use LegionHQ\LaravelPayrex\Concerns\HasList;
 use LegionHQ\LaravelPayrex\Data\BillingStatement;
 use LegionHQ\LaravelPayrex\Data\DeletedResource;
 use LegionHQ\LaravelPayrex\Data\PayrexCollection;
+use LegionHQ\LaravelPayrex\Data\PayrexCursorPaginator;
 use LegionHQ\LaravelPayrex\Exceptions\PayrexApiException;
 
 /**
  * @method PayrexCollection<BillingStatement> list(array{limit?: int, before?: string, after?: string} $params = [])
+ * @method PayrexCursorPaginator<BillingStatement> paginate(int $perPage = 10, array<string, mixed> $params = [], array<string, mixed> $options = [])
  */
 final class BillingStatementResource extends ApiResource
 {

@@ -3,3 +3,7 @@ parameters:
         -
             message: '#Trait LegionHQ\\LaravelPayrex\\Concerns\\HasPayrexCustomer is used zero times and is not analysed\.#'
             path: src/Concerns/HasPayrexCustomer.php
+        -
+            identifier: generics.variance
+            path: src/Data/PayrexCursorPaginator.php
+            count: 2

@@ -54,7 +54,8 @@ arch('ApiResource is abstract')
 arch('all DTOs are readonly')
     ->expect('LegionHQ\LaravelPayrex\Data')
     ->classes()
-    ->toBeReadonly();
+    ->toBeReadonly()
+    ->ignoring('LegionHQ\LaravelPayrex\Data\PayrexCursorPaginator');
 
 arch('all concrete DTOs are final')
     ->expect('LegionHQ\LaravelPayrex\Data')

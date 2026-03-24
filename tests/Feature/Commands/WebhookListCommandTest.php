@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Http;
 
 it('displays webhook endpoints in a table', function () {
-    Http::fake(['https://api.payrexhq.com/webhooks' => Http::response(loadFixture('webhook/list.json'))]);
+    Http::fake(['https://api.payrexhq.com/webhooks*' => Http::response(loadFixture('webhook/list.json'))]);
 
     $this->artisan('payrex:webhook-list')
         ->assertSuccessful();
@@ -20,7 +20,7 @@ it('displays webhook endpoints in a table', function () {
 });
 
 it('displays error message on authentication failure', function () {
-    Http::fake(['https://api.payrexhq.com/webhooks' => Http::response(loadFixture('errors/authentication.json'), 401)]);
+    Http::fake(['https://api.payrexhq.com/webhooks*' => Http::response(loadFixture('errors/authentication.json'), 401)]);
 
     $this->artisan('payrex:webhook-list')
         ->assertFailed()
@@ -28,7 +28,7 @@ it('displays error message on authentication failure', function () {
 });
 
 it('handles empty webhook list', function () {
-    Http::fake(['https://api.payrexhq.com/webhooks' => Http::response(['resource' => 'list', 'data' => [], 'has_more' => false])]);
+    Http::fake(['https://api.payrexhq.com/webhooks*' => Http::response(['resource' => 'list', 'data' => [], 'has_more' => false])]);
 
     $this->artisan('payrex:webhook-list')
         ->assertSuccessful()

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use LegionHQ\LaravelPayrex\Data\PayrexCollection;
+use LegionHQ\LaravelPayrex\Data\PayrexCursorPaginator;
 use LegionHQ\LaravelPayrex\Data\PayrexObject;
 
 it('maps items to typed DTO instances', function () {
@@ -82,112 +83,6 @@ it('throws LogicException on ArrayAccess unset', function () {
     unset($collection['resource']);
 })->throws(LogicException::class, 'PayrexCollection is immutable.');
 
-it('auto paginates across multiple pages with correct cursor', function () {
-    $receivedCursor = null;
-
-    $page1 = new PayrexCollection(
-        [
-            'resource' => 'list',
-            'has_more' => true,
-            'data' => [
-                ['id' => 'obj_1', 'resource' => 'test'],
-                ['id' => 'obj_2', 'resource' => 'test'],
-            ],
-        ],
-        PayrexObject::class,
-        function (array $pagination) use (&$receivedCursor) {
-            $receivedCursor = $pagination;
-
-            return new PayrexCollection(
-                [
-                    'resource' => 'list',
-                    'has_more' => false,
-                    'data' => [
-                        ['id' => 'obj_3', 'resource' => 'test'],
-                    ],
-                ],
-                PayrexObject::class,
-            );
-        },
-    );
-
-    $allIds = $page1->autoPaginate()->map(fn ($item) => $item->id)->all();
-
-    expect($allIds)->toBe(['obj_1', 'obj_2', 'obj_3'])
-        ->and($receivedCursor)->toBe(['after' => 'obj_2']);
-});
-
-it('auto paginates across three pages with correct cursors', function () {
-    $receivedCursors = [];
-
-    $page1 = new PayrexCollection(
-        [
-            'resource' => 'list',
-            'has_more' => true,
-            'data' => [
-                ['id' => 'obj_1', 'resource' => 'test'],
-                ['id' => 'obj_2', 'resource' => 'test'],
-            ],
-        ],
-        PayrexObject::class,
-        function (array $pagination) use (&$receivedCursors) {
-            $receivedCursors[] = $pagination;
-
-            if (count($receivedCursors) === 1) {
-                return new PayrexCollection(
-                    [
-                        'resource' => 'list',
-                        'has_more' => true,
-                        'data' => [
-                            ['id' => 'obj_3', 'resource' => 'test'],
-                            ['id' => 'obj_4', 'resource' => 'test'],
-                        ],
-                    ],
-                    PayrexObject::class,
-                    function (array $pagination) use (&$receivedCursors) {
-                        $receivedCursors[] = $pagination;
-
-                        return new PayrexCollection(
-                            [
-                                'resource' => 'list',
-                                'has_more' => false,
-                                'data' => [
-                                    ['id' => 'obj_5', 'resource' => 'test'],
-                                ],
-                            ],
-                            PayrexObject::class,
-                        );
-                    },
-                );
-            }
-
-            return new PayrexCollection(
-                ['resource' => 'list', 'has_more' => false, 'data' => []],
-                PayrexObject::class,
-            );
-        },
-    );
-
-    $allIds = $page1->autoPaginate()->map(fn ($item) => $item->id)->all();
-
-    expect($allIds)->toBe(['obj_1', 'obj_2', 'obj_3', 'obj_4', 'obj_5'])
-        ->and($receivedCursors)->toBe([
-            ['after' => 'obj_2'],
-            ['after' => 'obj_4'],
-        ]);
-});
-
-it('auto paginate works for single page', function () {
-    $collection = new PayrexCollection(
-        ['resource' => 'list', 'has_more' => false, 'data' => [['id' => 'obj_1', 'resource' => 'test']]],
-        PayrexObject::class,
-    );
-
-    $ids = $collection->autoPaginate()->map(fn ($item) => $item->id)->all();
-
-    expect($ids)->toBe(['obj_1']);
-});
-
 it('handles empty collection', function () {
     $collection = new PayrexCollection(
         ['resource' => 'list', 'has_more' => false, 'data' => []],
@@ -195,7 +90,7 @@ it('handles empty collection', function () {
     );
 
     expect(count($collection))->toBe(0)
-        ->and($collection->autoPaginate()->all())->toBe([]);
+        ->and($collection->data)->toBe([]);
 });
 
 it('serializes to JSON', function () {
@@ -205,49 +100,73 @@ it('serializes to JSON', function () {
     expect(json_encode($collection))->toBe(json_encode($attributes));
 });
 
-it('auto paginate respects maxPages safety valve', function () {
-    $pagesFetched = 0;
-
-    $makePage = function (string $id, bool $hasMore) use (&$makePage, &$pagesFetched): PayrexCollection {
-        return new PayrexCollection(
-            [
-                'resource' => 'list',
-                'has_more' => $hasMore,
-                'data' => [
-                    ['id' => $id, 'resource' => 'test'],
-                ],
-            ],
-            PayrexObject::class,
-            function (array $pagination) use (&$makePage, &$pagesFetched): PayrexCollection {
-                $pagesFetched++;
-                $nextId = 'obj_'.($pagesFetched + 1);
-
-                return $makePage($nextId, true);
-            },
-        );
-    };
-
-    $page1 = $makePage('obj_1', true);
-
-    $allIds = $page1->autoPaginate(maxPages: 3)->map(fn ($item) => $item->id)->all();
-
-    expect($allIds)->toBe(['obj_1', 'obj_2', 'obj_3'])
-        ->and($pagesFetched)->toBe(2);
-});
-
-it('gracefully stops auto pagination when paginator is null', function () {
+it('toCursorPaginator returns a PayrexCursorPaginator', function () {
     $collection = new PayrexCollection(
-        [
-            'resource' => 'list',
-            'has_more' => true,
-            'data' => [
-                ['id' => 'obj_1', 'resource' => 'test'],
-            ],
-        ],
+        ['resource' => 'list', 'has_more' => true, 'data' => [
+            ['id' => 'obj_1', 'resource' => 'test'],
+            ['id' => 'obj_2', 'resource' => 'test'],
+        ]],
         PayrexObject::class,
     );
 
-    $ids = $collection->autoPaginate()->map(fn ($item) => $item->id)->all();
+    $paginator = $collection->toCursorPaginator(perPage: 10);
 
-    expect($ids)->toBe(['obj_1']);
+    expect($paginator)->toBeInstanceOf(PayrexCursorPaginator::class)
+        ->and($paginator->items())->toHaveCount(2)
+        ->and($paginator->perPage())->toBe(10)
+        ->and($paginator->hasMorePages())->toBeTrue();
+});
+
+it('toCursorPaginator defaults perPage to current page size', function () {
+    $collection = new PayrexCollection(
+        ['resource' => 'list', 'has_more' => false, 'data' => [
+            ['id' => 'obj_1', 'resource' => 'test'],
+            ['id' => 'obj_2', 'resource' => 'test'],
+            ['id' => 'obj_3', 'resource' => 'test'],
+        ]],
+        PayrexObject::class,
+    );
+
+    $paginator = $collection->toCursorPaginator();
+
+    expect($paginator->perPage())->toBe(3)
+        ->and($paginator->hasMorePages())->toBeFalse();
+});
+
+it('toCursorPaginator forwards hasMore false correctly', function () {
+    $collection = new PayrexCollection(
+        ['resource' => 'list', 'has_more' => false, 'data' => [
+            ['id' => 'obj_1', 'resource' => 'test'],
+        ]],
+        PayrexObject::class,
+    );
+
+    $paginator = $collection->toCursorPaginator();
+
+    expect($paginator->hasMorePages())->toBeFalse()
+        ->and($paginator->nextCursor())->toBeNull();
+});
+
+it('toCursorPaginator works with empty collection', function () {
+    $collection = new PayrexCollection(
+        ['resource' => 'list', 'has_more' => false, 'data' => []],
+        PayrexObject::class,
+    );
+
+    $paginator = $collection->toCursorPaginator(perPage: 10);
+
+    expect($paginator->items())->toHaveCount(0)
+        ->and($paginator->hasMorePages())->toBeFalse();
+});
+
+it('toCursorPaginator defaults perPage to 1 on empty collection', function () {
+    $collection = new PayrexCollection(
+        ['resource' => 'list', 'has_more' => false, 'data' => []],
+        PayrexObject::class,
+    );
+
+    $paginator = $collection->toCursorPaginator();
+
+    expect($paginator->perPage())->toBe(1)
+        ->and($paginator->items())->toHaveCount(0);
 });

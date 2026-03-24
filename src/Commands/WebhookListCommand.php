@@ -28,19 +28,15 @@ final class WebhookListCommand extends Command
             $rows = task(
                 label: 'Fetching webhook endpoints...',
                 callback: function () use ($client): array {
-                    $rows = [];
+                    $collection = $client->webhooks()->list(['limit' => 100]);
 
-                    foreach ($client->webhooks()->list()->autoPaginate() as $item) {
-                        $rows[] = [
-                            $item->id,
-                            $item->url ?? '-',
-                            $item->status instanceof WebhookEndpointStatus ? $item->status->value : '-',
-                            ($count = count($item->events ?? [])).' '.($count === 1 ? 'event' : 'events'),
-                            $item->createdAt ? date('Y-m-d H:i:s', $item->createdAt) : '-',
-                        ];
-                    }
-
-                    return $rows;
+                    return array_map(fn ($item) => [
+                        $item->id,
+                        $item->url ?? '-',
+                        $item->status instanceof WebhookEndpointStatus ? $item->status->value : '-',
+                        ($count = count($item->events ?? [])).' '.($count === 1 ? 'event' : 'events'),
+                        $item->createdAt ? date('Y-m-d H:i:s', $item->createdAt) : '-',
+                    ], $collection->data);
                 },
             );
 

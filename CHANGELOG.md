@@ -4,6 +4,18 @@ All notable changes to `payrex-laravel` will be documented in this file.
 
 ## [Unreleased](https://github.com/whoami15/payrex-laravel/compare/v1.0.1...main)
 
+### Added
+
+* `paginate()` method on all listable resources
+
+### Changed
+
+* `PayrexCollection` constructor no longer accepts a `$paginator` closure parameter
+
+### Removed
+
+* `PayrexCollection::autoPaginate()`
+
 ## [v1.0.1](https://github.com/whoami15/payrex-laravel/compare/v1.0.0...v1.0.1) - 2026-03-21
 
 ### Fixed

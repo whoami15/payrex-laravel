@@ -31,7 +31,6 @@ final class PayoutTransactionResource extends ApiResource
         return new PayrexCollection(
             $this->transport->request('GET', "{$this->resourceUri()}/{$payoutId}/transactions", $params),
             PayoutTransaction::class,
-            fn (array $pagination) => $this->list($payoutId, array_merge($params, $pagination)), // @phpstan-ignore argument.type
         );
     }
 }

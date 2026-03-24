@@ -6,9 +6,8 @@ namespace LegionHQ\LaravelPayrex\Data;
 
 use ArrayAccess;
 use ArrayIterator;
-use Closure;
 use Countable;
-use Illuminate\Support\LazyCollection;
+use Illuminate\Pagination\Cursor;
 use IteratorAggregate;
 use JsonSerializable;
 use LogicException;
@@ -32,12 +31,10 @@ final readonly class PayrexCollection implements ArrayAccess, Countable, Iterato
     /**
      * @param  array<string, mixed>  $attributes
      * @param  class-string<T>  $itemClass
-     * @param  (Closure(array<string, string>): PayrexCollection<T>)|null  $paginator
      */
     public function __construct(
         protected array $attributes,
         protected string $itemClass,
-        protected ?Closure $paginator = null,
     ) {
         $this->resource = $attributes['resource'] ?? null;
         $this->hasMore = $attributes['has_more'] ?? false;
@@ -48,37 +45,24 @@ final readonly class PayrexCollection implements ArrayAccess, Countable, Iterato
     }
 
     /**
-     * Lazily iterate through all pages of results.
+     * Convert the collection to a Laravel CursorPaginator.
      *
-     * @param  int  $maxPages  Safety limit to prevent infinite loops (0 = unlimited).
-     * @return LazyCollection<int, T>
+     * @internal
+     *
+     * @param  int|null  $perPage  Items per page (defaults to the current page size, minimum 1).
+     * @param  Cursor|null  $cursor  Current cursor for previous/next page determination.
+     * @param  array<string, mixed>  $options  Additional paginator options (path, query, fragment, pageName).
+     * @return PayrexCursorPaginator<T>
      */
-    public function autoPaginate(int $maxPages = 100): LazyCollection // @phpstan-ignore generics.variance
+    public function toCursorPaginator(?int $perPage = null, ?Cursor $cursor = null, array $options = []): PayrexCursorPaginator
     {
-        return new LazyCollection(function () use ($maxPages) {
-            $collection = $this;
-            $page = 0;
-
-            while (true) {
-                foreach ($collection->data as $item) {
-                    yield $item;
-                }
-
-                $page++;
-
-                if (! $collection->hasMore || empty($collection->data) || $collection->paginator === null) {
-                    break;
-                }
-
-                if ($maxPages > 0 && $page >= $maxPages) {
-                    break;
-                }
-
-                $data = $collection->data;
-                $lastItem = end($data);
-                $collection = ($collection->paginator)(['after' => $lastItem->id ?? '']);
-            }
-        });
+        return new PayrexCursorPaginator(
+            items: $this->data,
+            perPage: $perPage ?? max($this->count(), 1),
+            apiHasMore: $this->hasMore,
+            cursor: $cursor,
+            options: $options,
+        );
     }
 
     /**

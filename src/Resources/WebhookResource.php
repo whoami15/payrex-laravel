@@ -7,11 +7,13 @@ namespace LegionHQ\LaravelPayrex\Resources;
 use LegionHQ\LaravelPayrex\Concerns\HasList;
 use LegionHQ\LaravelPayrex\Data\DeletedResource;
 use LegionHQ\LaravelPayrex\Data\PayrexCollection;
+use LegionHQ\LaravelPayrex\Data\PayrexCursorPaginator;
 use LegionHQ\LaravelPayrex\Data\WebhookEndpoint;
 use LegionHQ\LaravelPayrex\Exceptions\PayrexApiException;
 
 /**
  * @method PayrexCollection<WebhookEndpoint> list(array{limit?: int, before?: string, after?: string, url?: string, description?: string} $params = [])
+ * @method PayrexCursorPaginator<WebhookEndpoint> paginate(int $perPage = 10, array<string, mixed> $params = [], array<string, mixed> $options = [])
  */
 final class WebhookResource extends ApiResource
 {
