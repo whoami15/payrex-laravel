@@ -2,7 +2,7 @@
 
 All notable changes to `payrex-laravel` will be documented in this file.
 
-## [Unreleased](https://github.com/whoami15/payrex-laravel/compare/v1.0.1...main)
+## [Unreleased](https://github.com/whoami15/payrex-laravel/compare/v1.1.0...HEAD)
 
 ### Added
 
@@ -15,6 +15,10 @@ All notable changes to `payrex-laravel` will be documented in this file.
 ### Removed
 
 * `PayrexCollection::autoPaginate()`
+
+## [v1.1.0](https://github.com/whoami15/payrex-laravel/compare/v1.0.1...v1.1.0) - 2026-03-24
+
+* Replace `autoPaginate()` with `paginate()` on listable resources
 
 ## [v1.0.1](https://github.com/whoami15/payrex-laravel/compare/v1.0.0...v1.0.1) - 2026-03-21
 
