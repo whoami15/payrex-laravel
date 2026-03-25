@@ -1,0 +1,62 @@
+<?php
+
+declare(strict_types=1);
+
+use LegionHQ\LaravelPayrex\Data\BillingStatement;
+use LegionHQ\LaravelPayrex\Data\BillingStatementLineItem;
+use LegionHQ\LaravelPayrex\Data\Customer;
+use LegionHQ\LaravelPayrex\Data\PaymentIntent;
+use LegionHQ\LaravelPayrex\Enums\BillingStatementStatus;
+use LegionHQ\LaravelPayrex\Enums\PaymentIntentStatus;
+use LegionHQ\LaravelPayrex\Enums\WebhookEventType;
+use LegionHQ\LaravelPayrex\Events\BillingStatementOverdue;
+
+it('returns event data as a typed DTO via data()', function () {
+    $payload = loadFixture('webhooks/billing_statement.overdue.json');
+    $event = new BillingStatementOverdue($payload);
+
+    /** @var BillingStatement $data */
+    $data = $event->data();
+
+    expect($data)
+        ->toBeInstanceOf(BillingStatement::class)
+        ->and($data->id)->toBe('bstm_xxxxx')
+        ->and($data->amount)->toBe(75000)
+        ->and($data->currency)->toBe('PHP')
+        ->and($data->customerId)->toBe('cus_xxxxx')
+        ->and($data->status)->toBe(BillingStatementStatus::Open)
+        ->and($data->description)->toBe('Updated description')
+        ->and($data->billingStatementUrl)->toStartWith('https://bill.payrexhq.com/')
+        ->and($data->billingStatementNumber)->toBe('UAEONUMZ-0001')
+        ->and($data->billingStatementMerchantName)->toBeNull()
+        ->and($data->dueAt)->toBe(1774357865)
+        ->and($data->finalizedAt)->toBe(1773753094)
+        ->and($data->statementDescriptor)->toBeNull()
+        ->and($data->lineItems)->toHaveCount(1)
+        ->and($data->lineItems[0])->toBeInstanceOf(BillingStatementLineItem::class)
+        ->and($data->lineItems[0]->description)->toBe('Updated Line Item')
+        ->and($data->lineItems[0]->unitPrice)->toBe(75000)
+        ->and($data->lineItems[0]->quantity)->toBe(1)
+        ->and($data->customer)->toBeInstanceOf(Customer::class)
+        ->and($data->customer->id)->toBe('cus_xxxxx')
+        ->and($data->paymentIntent)->toBeInstanceOf(PaymentIntent::class)
+        ->and($data->paymentIntent->id)->toBe('pi_xxxxx')
+        ->and($data->paymentIntent->status)->toBe(PaymentIntentStatus::AwaitingPaymentMethod)
+        ->and($data->paymentSettings)->toBe(['payment_methods' => ['card']]);
+});
+
+it('returns the correct event type enum', function () {
+    $payload = loadFixture('webhooks/billing_statement.overdue.json');
+    $event = new BillingStatementOverdue($payload);
+
+    expect($event->eventType())->toBe(WebhookEventType::BillingStatementOverdue);
+});
+
+it('exposes the full payload and metadata', function () {
+    $payload = loadFixture('webhooks/billing_statement.overdue.json');
+    $event = new BillingStatementOverdue($payload);
+
+    expect($event->payload['id'])->toBe('evt_xxxxx')
+        ->and($event->payload['resource'])->toBe('event')
+        ->and($event->isLiveMode())->toBeFalse();
+});
