@@ -6,6 +6,7 @@ use LegionHQ\LaravelPayrex\Data\CheckoutSession;
 use LegionHQ\LaravelPayrex\Data\PaymentIntent;
 use LegionHQ\LaravelPayrex\Enums\CheckoutSessionStatus;
 use LegionHQ\LaravelPayrex\Enums\PaymentIntentStatus;
+use LegionHQ\LaravelPayrex\Enums\SubmitType;
 use LegionHQ\LaravelPayrex\Enums\WebhookEventType;
 use LegionHQ\LaravelPayrex\Events\CheckoutSessionExpired;
 
@@ -32,7 +33,7 @@ it('returns event data as a typed DTO via data()', function () {
         ->and($data->cancelUrl)->toBe('https://example.com/checkout/cancel')
         ->and($data->paymentMethods)->toBe(['card', 'maya', 'gcash', 'qrph'])
         ->and($data['capture_type'])->toBe('automatic')
-        ->and($data->submitType)->toBe('pay');
+        ->and($data->submitType)->toBe(SubmitType::Pay);
 });
 
 it('returns the correct event type enum', function () {

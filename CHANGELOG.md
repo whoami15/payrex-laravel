@@ -6,19 +6,24 @@ All notable changes to `payrex-laravel` will be documented in this file.
 
 ### Added
 
-* `paginate()` method on all listable resources
+* `CaptureType` enum with `Automatic` and `Manual` cases
+* `SubmitType` enum with `Pay` and `Donate` cases
+* `InstallmentType` enum with `Regular`, `Zero`, `RegularHoliday`, and `ZeroHoliday` cases
 
 ### Changed
 
+* Checkout session `$submitType` is now cast to `SubmitType` enum
+
+## [v1.1.0](https://github.com/whoami15/payrex-laravel/compare/v1.0.1...v1.1.0) - 2026-03-24
+
+### Changed
+
+* Replace `autoPaginate()` with `paginate()` on listable resources
 * `PayrexCollection` constructor no longer accepts a `$paginator` closure parameter
 
 ### Removed
 
 * `PayrexCollection::autoPaginate()`
-
-## [v1.1.0](https://github.com/whoami15/payrex-laravel/compare/v1.0.1...v1.1.0) - 2026-03-24
-
-* Replace `autoPaginate()` with `paginate()` on listable resources
 
 ## [v1.0.1](https://github.com/whoami15/payrex-laravel/compare/v1.0.0...v1.0.1) - 2026-03-21
 

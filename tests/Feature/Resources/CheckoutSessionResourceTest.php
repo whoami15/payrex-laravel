@@ -7,6 +7,7 @@ use LegionHQ\LaravelPayrex\Data\CheckoutSession;
 use LegionHQ\LaravelPayrex\Data\Customer;
 use LegionHQ\LaravelPayrex\Data\PaymentIntent;
 use LegionHQ\LaravelPayrex\Enums\CheckoutSessionStatus;
+use LegionHQ\LaravelPayrex\Enums\SubmitType;
 use LegionHQ\LaravelPayrex\PayrexClient;
 
 it('creates a checkout session', function () {
@@ -56,7 +57,7 @@ it('creates a checkout session', function () {
         ->and($result->successUrl)->toBe('http://some-url.com')
         ->and($result->cancelUrl)->toBe('http://some-url.com')
         ->and($result->billingDetailsCollection)->toBe('always')
-        ->and($result->submitType)->toBe('pay')
+        ->and($result->submitType)->toBe(SubmitType::Pay)
         ->and($result->statementDescriptor)->toBe('Override statement descriptor')
         ->and($result->expiresAt)->toBe(1721813375)
         ->and($result->paymentIntent)->not->toBeNull()

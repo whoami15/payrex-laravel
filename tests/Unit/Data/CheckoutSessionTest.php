@@ -6,6 +6,7 @@ use LegionHQ\LaravelPayrex\Data\CheckoutSession;
 use LegionHQ\LaravelPayrex\Data\Customer;
 use LegionHQ\LaravelPayrex\Data\PaymentIntent;
 use LegionHQ\LaravelPayrex\Enums\CheckoutSessionStatus;
+use LegionHQ\LaravelPayrex\Enums\SubmitType;
 
 it('hydrates all properties from fixture', function () {
     $data = loadFixture('checkout_session/created.json');
@@ -33,7 +34,7 @@ it('hydrates all properties from fixture', function () {
         ->and($session->paymentMethods)->toBe(['card', 'gcash'])
         ->and($session->paymentMethodOptions)->toBe(['card' => ['capture_type' => 'automatic']])
         ->and($session->billingDetailsCollection)->toBe('always')
-        ->and($session->submitType)->toBe('pay')
+        ->and($session->submitType)->toBe(SubmitType::Pay)
         ->and($session->statementDescriptor)->toBe('Override statement descriptor')
         ->and($session->expiresAt)->toBe(1721813375)
         ->and($session->livemode)->toBeFalse()
@@ -55,6 +56,20 @@ it('returns null for unknown status values', function () {
     $session = CheckoutSession::from(['id' => 'cs_1', 'resource' => 'checkout_session', 'status' => 'nonexistent']);
 
     expect($session->status)->toBeNull();
+});
+
+it('casts submitType to SubmitType enum', function () {
+    $session = CheckoutSession::from(['id' => 'cs_1', 'resource' => 'checkout_session', 'submit_type' => 'pay']);
+    expect($session->submitType)->toBe(SubmitType::Pay);
+
+    $session = CheckoutSession::from(['id' => 'cs_2', 'resource' => 'checkout_session', 'submit_type' => 'donate']);
+    expect($session->submitType)->toBe(SubmitType::Donate);
+});
+
+it('returns null for unknown submitType values', function () {
+    $session = CheckoutSession::from(['id' => 'cs_1', 'resource' => 'checkout_session', 'submit_type' => 'nonexistent']);
+
+    expect($session->submitType)->toBeNull();
 });
 
 it('hydrates paymentIntent as string ID when not expanded', function () {

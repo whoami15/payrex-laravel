@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LegionHQ\LaravelPayrex\Data;
 
 use LegionHQ\LaravelPayrex\Enums\CheckoutSessionStatus;
+use LegionHQ\LaravelPayrex\Enums\SubmitType;
 
 final readonly class CheckoutSession extends PayrexObject
 {
@@ -29,7 +30,7 @@ final readonly class CheckoutSession extends PayrexObject
         /** @var array<string, mixed>|null */
         public ?array $paymentMethodOptions = null,
         public ?string $billingDetailsCollection = null,
-        public ?string $submitType = null,
+        public ?SubmitType $submitType = null,
         public ?string $statementDescriptor = null,
         public ?int $expiresAt = null,
     ) {
@@ -61,7 +62,7 @@ final readonly class CheckoutSession extends PayrexObject
             paymentMethods: $attributes['payment_methods'] ?? null,
             paymentMethodOptions: $attributes['payment_method_options'] ?? null,
             billingDetailsCollection: $attributes['billing_details_collection'] ?? null,
-            submitType: $attributes['submit_type'] ?? null,
+            submitType: self::castEnum($attributes, 'submit_type', SubmitType::class),
             statementDescriptor: $attributes['statement_descriptor'] ?? null,
             expiresAt: $attributes['expires_at'] ?? null,
         );
